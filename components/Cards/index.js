@@ -28,11 +28,12 @@ axios.get('https://lambda-times-backend.herokuapp.com/articles')
       const headline = document.createElement('div');
       const author = document.createElement('div');
       const imageCont = document.createElement('div');
+      const authImage = document.createElement('img');
       const credit = document.createElement('span');
 
       headline.textContent = hline;
-      imageCont.src = imgUrl;
-      //! made sure ^^^ div works without creating image element.
+      authImage.src = imgUrl;
+      authImage.alt = `picture of ${authorName}`;
       credit.textContent = `By ${authorName}`;
 
       newCard.classList.add('class');
@@ -40,8 +41,11 @@ axios.get('https://lambda-times-backend.herokuapp.com/articles')
       author.classList.add('author');
       imageCont.classList.add('image-container');
 
-
-
-
+      imageCont.appendChild(authImage);
+      author.appendChild(imageCont);
+      authImage.appendChild(credit);
+      newCard.appendChild(headline);
+      newCard.appendChild(author);
+      
     }
   })
