@@ -22,7 +22,7 @@ axios.get('https://lambda-times-backend.herokuapp.com/articles')
 
   .then((results) => {
     console.log(results);
-
+    
     function Card(subject) {
       const newCard = document.createElement('div'); 
       const headline = document.createElement('div');
@@ -35,8 +35,6 @@ axios.get('https://lambda-times-backend.herokuapp.com/articles')
       authImage.src = subject.authorPhoto;
       authImage.alt = `picture of ${subject.authorName}`;
       credit.textContent = `By ${subject.authorName}`;
-
-      //authorName, authorPhoto, headline
 
       newCard.classList.add('card');
       headline.classList.add('headline');
@@ -51,12 +49,37 @@ axios.get('https://lambda-times-backend.herokuapp.com/articles')
       
       return newCard;
     };
-    
-      results.data.articles.bootstrap.forEach(article => {
+       
+    // !VVV This whole section...DRY...fix! //
+    results.data.articles.bootstrap.forEach(article => {
       const newCard = Card(article);
       const cardContainer = document.querySelector('.cards-container');
       cardContainer.appendChild(newCard);
+    });
 
-    })
+    results.data.articles.javascript.forEach(article => {
+      const newCard = Card(article);
+      const cardContainer = document.querySelector('.cards-container');
+      cardContainer.appendChild(newCard);
+    });
+    
+    results.data.articles.jquery.forEach(article => {
+      const newCard = Card(article);
+      const cardContainer = document.querySelector('.cards-container');
+      cardContainer.appendChild(newCard);
+    });
+    
+    results.data.articles.node.forEach(article => {
+      const newCard = Card(article);
+      const cardContainer = document.querySelector('.cards-container');
+      cardContainer.appendChild(newCard);
+    });
+
+    results.data.articles.technology.forEach(article => {
+      const newCard = Card(article);
+      const cardContainer = document.querySelector('.cards-container');
+      cardContainer.appendChild(newCard);
+    });
+    
   });
 
