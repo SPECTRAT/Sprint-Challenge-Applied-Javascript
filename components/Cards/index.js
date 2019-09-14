@@ -23,7 +23,7 @@ axios.get('https://lambda-times-backend.herokuapp.com/articles')
   .then((results) => {
     console.log(results);
 
-    function Card(hline, authorName, imgUrl) {
+    function Card(subject) {
       const newCard = document.createElement('div'); 
       const headline = document.createElement('div');
       const author = document.createElement('div');
@@ -31,21 +31,32 @@ axios.get('https://lambda-times-backend.herokuapp.com/articles')
       const authImage = document.createElement('img');
       const credit = document.createElement('span');
 
-      headline.textContent = hline;
-      authImage.src = imgUrl;
-      authImage.alt = `picture of ${authorName}`;
-      credit.textContent = `By ${authorName}`;
+      headline.textContent = subject.headline;
+      authImage.src = subject.authorPhoto;
+      authImage.alt = `picture of ${subject.authorName}`;
+      credit.textContent = `By ${subject.authorName}`;
 
-      newCard.classList.add('class');
+      //authorName, authorPhoto, headline
+
+      newCard.classList.add('card');
       headline.classList.add('headline');
       author.classList.add('author');
-      imageCont.classList.add('image-container');
+      imageCont.classList.add('img-container');
 
       imageCont.appendChild(authImage);
+      imageCont.appendChild(credit);
       author.appendChild(imageCont);
-      authImage.appendChild(credit);
       newCard.appendChild(headline);
       newCard.appendChild(author);
       
-    }
-  })
+      return newCard;
+    };
+    
+      results.data.articles.bootstrap.forEach(article => {
+      const newCard = Card(article);
+      const cardContainer = document.querySelector('.cards-container');
+      cardContainer.appendChild(newCard);
+
+    })
+  });
+
