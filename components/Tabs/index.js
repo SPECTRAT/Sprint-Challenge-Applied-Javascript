@@ -28,4 +28,8 @@ axios.get('https://lambda-times-backend.herokuapp.com/topics')
     topics.appendChild(tabs());
 
     });
+  })
+
+  .catch((error) => {
+    console.log(error);
   });
