@@ -17,3 +17,84 @@
 // </div>
 //
 // Create a card for each of the articles and add the card to the DOM.
+
+axios.get('https://lambda-times-backend.herokuapp.com/articles')
+
+  .then((results) => {
+    console.log(results);
+    
+    function Card(subject) {
+      const newCard = document.createElement('div'); 
+      const headline = document.createElement('div');
+      const author = document.createElement('div');
+      const imageCont = document.createElement('div');
+      const authImage = document.createElement('img');
+      const credit = document.createElement('span');
+
+      headline.textContent = subject.headline;
+      authImage.src = subject.authorPhoto;
+      authImage.alt = `picture of ${subject.authorName}`;
+      credit.textContent = `By ${subject.authorName}`;
+
+      newCard.classList.add('card');
+      headline.classList.add('headline');
+      author.classList.add('author');
+      imageCont.classList.add('img-container');
+
+      imageCont.appendChild(authImage);
+      imageCont.appendChild(credit);
+      author.appendChild(imageCont);
+      newCard.appendChild(headline);
+      newCard.appendChild(author);
+      
+      return newCard;
+    };
+
+    //old code...it's also possible to seperate the function below completele and *just* do the axios stuff in its own small section.
+
+    // results.data.articles.bootstrap.forEach(article => {
+    //   const newCard = Card(article);
+    //   const cardContainer = document.querySelector('.cards-container');
+    //   cardContainer.appendChild(newCard);
+    // });
+
+    // results.data.articles.javascript.forEach(article => {
+    //   const newCard = Card(article);
+    //   const cardContainer = document.querySelector('.cards-container');
+    //   cardContainer.appendChild(newCard);
+    // });
+    
+    // results.data.articles.jquery.forEach(article => {
+    //   const newCard = Card(article);
+    //   const cardContainer = document.querySelector('.cards-container');
+    //   cardContainer.appendChild(newCard);
+    // });
+    
+    // results.data.articles.node.forEach(article => {
+    //   const newCard = Card(article);
+    //   const cardContainer = document.querySelector('.cards-container');
+    //   cardContainer.appendChild(newCard);
+    // });
+
+    // results.data.articles.technology.forEach(article => {
+    //   const newCard = Card(article);
+    //   const cardContainer = document.querySelector('.cards-container');
+    //   cardContainer.appendChild(newCard);
+    // });
+
+    const articles = results.data.articles;
+    const cardContainer = document.querySelector('.cards-container');
+
+    for(topic in articles) {
+      articles[topic].forEach(article => {
+        cardContainer.appendChild(Card(article));
+      });
+    };
+    console.log(typeof results.data);
+    console.log(typeof results.data.articles);
+  })
+
+  .catch((error) => {
+    console.log(error);
+  });
+
